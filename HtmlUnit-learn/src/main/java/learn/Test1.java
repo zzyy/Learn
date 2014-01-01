@@ -17,16 +17,39 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 public class Test1 {
 	@Test
-	public void test1(){
+	public void testBaidu(){
 		WebClient webClient = new WebClient();
-		WebClientOptions options = webClient.getOptions();
-		options.setCssEnabled(false);
+//		WebClientOptions options = webClient.getOptions();
+//		options.setCssEnabled(false);
 		
 		try {
 			HtmlPage mainPage = webClient.getPage("http://www.baidu.com");
 			HtmlForm form = mainPage.getFormByName("f");
 			HtmlTextInput input = form.getInputByName("kw");
 			HtmlSubmitInput submit = form.getInputByValue("百度一下");
+			input.setText("123");
+			HtmlPage result = submit.click();
+			System.out.println(result.asXml());
+			
+		} catch (FailingHttpStatusCodeException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	public void testGoogle(){
+		WebClient webClient = new WebClient();
+//		WebClientOptions options = webClient.getOptions();
+//		options.setCssEnabled(false);
+		
+		try {
+			HtmlPage mainPage = webClient.getPage("http://www.google.com.hk/");
+			HtmlForm form = mainPage.getFormByName("f");
+			HtmlTextInput input = form.getElementById("lst-ib");
+			HtmlSubmitInput submit = form.getInputByName("btnK");
 			input.setText("123");
 			HtmlPage result = submit.click();
 			System.out.println(result.asXml());
