@@ -32,4 +32,16 @@ public class Test01 {
 		driver.findElement(By.name("btnK")).click();
 //		assertEquals("zy - Google 搜索", driver.getTitle());
 	}
+	
+	@Test
+	public void testFirefox(){
+		System.setProperty("webdriver.firefox.bin", "D:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.get("http://www.google.com.hk/");
+		driver.findElement(By.id("lst-ib")).clear();
+		driver.findElement(By.id("lst-ib")).sendKeys("zy");
+		driver.findElement(By.name("btnK")).click();
+		driver.close();
+	}
 }
