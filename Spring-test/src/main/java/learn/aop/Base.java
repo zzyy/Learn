@@ -1,5 +1,8 @@
 package learn.aop;
 
+import org.springframework.stereotype.Component;
+
+@Component("base")
 public class Base {
 
 	public void run(){

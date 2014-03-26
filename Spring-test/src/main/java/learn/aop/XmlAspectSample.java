@@ -1,12 +1,13 @@
 package learn.aop;
 
-import org.aopalliance.intercept.Joinpoint;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 
 
 public class XmlAspectSample {
 
-	public void doBefore() {
+	public void doBefore(JoinPoint jp) {
+		System.out.println(jp.toString());
 		System.out.println("***XmlAspectSample.before");
 	}
 	

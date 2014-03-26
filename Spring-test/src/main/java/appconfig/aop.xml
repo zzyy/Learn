@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
-		default-autowire="byName">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="learn.*"></context:component-scan>
 
-	<bean id="base" class="learn.aop.Base"></bean>
+	<!-- <bean id="base" class="learn.aop.Base"></bean> -->
 	<bean id="xmlAspect" class="learn.aop.XmlAspectSample"></bean>
 
+	<bean id="beforeAdvice" class="learn.aop.BeforeAdviceSample"></bean>
+
+	<aop:aspectj-autoproxy />
 	<aop:config>
+		<aop:pointcut expression="execution (* learn.aop.*.*(..))"
+			id="basePonitCut" />
+		<aop:advisor advice-ref="beforeAdvice" pointcut-ref="basePonitCut" />
+
 		<aop:aspect ref="xmlAspect">
-			<aop:pointcut expression="execution (* learn.aop.*.*(..))"
-				id="basePonitCut" />
 			<aop:before method="doBefore" pointcut-ref="basePonitCut" />
 			<aop:after method="doAfter" pointcut-ref="basePonitCut" />
 			<aop:around method="doAround" pointcut-ref="basePonitCut" />
 			<aop:after-throwing method="doThrow" pointcut-ref="basePonitCut" />
 		</aop:aspect>
+
 	</aop:config>
 
 </beans>
